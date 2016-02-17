@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using System.Web.UI.WebControls
+@using System.Xml.Serialization
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -40,6 +42,7 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/site")
     @RenderSection("scripts", required: false)
 </body>
 </html>

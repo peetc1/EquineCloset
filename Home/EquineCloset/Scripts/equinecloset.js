@@ -1,7 +1,7 @@
 ﻿
 $(function () {
-    $("#test").tubular({
+    $(".body-content").tubular({
         videoId: "OapMBWNgTzU",
-        wrapperZIndex: -1000
+        wrapperZIndex: 100
     });
 });
