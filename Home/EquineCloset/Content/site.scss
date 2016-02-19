@@ -8,6 +8,13 @@
     padding-right: 15px;
 }
 
-.see-through {
-    opacity: 0.4;
+.black-block {
+    background: url(images/black-50-trans.png);
+    color: #fff;
+    border-radius: 5px;
+    padding: 5px 10px 10px 10px;
+}
+
+.margin-top {
+    margin-top: 10px;
 }
