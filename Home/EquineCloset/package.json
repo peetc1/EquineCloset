@@ -1,0 +1,12 @@
+{
+	"version": "1.0.0",
+	"name": "EquineCloset",
+	"private": true,
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-sass": "~1.1.0",
+    "grunt-contrib-watch": "~0.6.1",
+    "grunt-postcss": "~0.7.2",
+    "autoprefixer": "~6.3.3"
+  }
+}

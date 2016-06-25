@@ -1,0 +1,16 @@
+body {
+  padding-top: 50px;
+  padding-bottom: 20px; }
+
+.body-content {
+  padding-left: 15px;
+  padding-right: 15px; }
+
+.black-block {
+  background: url(images/black-50-trans.png);
+  color: #fff;
+  border-radius: 5px;
+  padding: 5px 10px 10px 10px; }
+
+.margin-top {
+  margin-top: 10px; }
