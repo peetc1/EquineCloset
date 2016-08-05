@@ -244,6 +244,7 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\site.scss" />
     <Content Include="package.json" />
+    <None Include="Properties\PublishProfiles\GoDaddy.pubxml" />
     <None Include="Scripts\jquery-2.2.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

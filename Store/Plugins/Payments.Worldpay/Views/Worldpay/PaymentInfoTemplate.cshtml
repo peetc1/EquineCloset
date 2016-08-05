@@ -1,0 +1,57 @@
+﻿@{
+    Layout = "";
+}
+@model Nop.Plugin.Payments.Worldpay.Models.PaymentInfoModel
+@using Nop.Web.Framework;
+
+    <div id='my_payment_section'></div>
+    <input type="hidden" name="paymenttoken" id="paymenttoken" />
+    <input style="display:none;" type="hidden" name="nextstep" value="Next" id="nextstep" />
+
+    <script type="text/javascript">
+        var clientKey = '@ViewBag.ClientKey';
+
+
+        $(document).ready(function () {
+            $.getScript("https://cdn.worldpay.com/v1/worldpay.js", function (data, textStatus, jqxhr) {
+
+                function callback(obj) {
+                    Worldpay.templateSaveButton = true;
+
+                    if (obj && obj.token) {
+                        $(".payment-errors").text("");
+                        var token = obj.token;
+                        $("#paymenttoken").val(token);
+                        if (document.location.href.indexOf('onepagecheckout') > -1) {
+                            PaymentInfo.save();
+                        }
+                        else {
+                            var form = $(".payment-info-next-step-button").closest('form');
+                            form.submit();
+                        }
+                    } else {
+                        $(".payment-errors").text('error.apierror');
+                    }
+                    $(".payment-info-next-step-button").removeAttr("disabled");
+                    return false;
+                }
+
+                Worldpay.setClientKey(clientKey);
+                Worldpay.reusable = false;
+                Worldpay.templateSaveButton = false;
+                Worldpay.setTemplate('@ViewBag.TemplateFormCode');
+                Worldpay.useTemplate('co-payment-info-form', 'my_payment_section', 'inline', callback);
+            });
+
+            $(".payment-info-next-step-button").removeAttr("onClick");
+
+
+            $(".payment-info-next-step-button").unbind().click(function (event) {
+                $('.submit-button').attr("disabled", "disabled");
+                Worldpay.submitTemplateForm();
+                return false;
+            });
+        });
+
+    </script>
+    <div class="payment-errors"></div>

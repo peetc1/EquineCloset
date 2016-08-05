@@ -1,0 +1,79 @@
+﻿@{
+    Layout = "";
+}
+@model ConfigurationModel
+@using Nop.Plugin.Payments.Worldpay.Models;
+@using Nop.Web.Framework;
+@Html.Action("StoreScopeConfiguration", "Setting", new { area = "Admin" })
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-body">
+
+                <b>The payment plugin uses the primary currency of the shop, so make sure the primary currency is supported by Worldpay.</b><br />
+                <b>All the settings below are mandatory, if any is missing, the settings are invalid and the payment method is not shown to the customer on the checkout page.</b>
+                <br /><hr /><br />
+
+
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.MerchantId, false)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.MerchantId)
+                        @Html.ValidationMessageFor(model => model.MerchantId)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.ServiceKey, false)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.ServiceKey)
+                        @Html.ValidationMessageFor(model => model.ServiceKey)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.ClientKey, false)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.ClientKey)
+                        @Html.ValidationMessageFor(model => model.ClientKey)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.WorldPayTemplateFormCode)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.WorldPayTemplateFormCode)
+                        @Html.ValidationMessageFor(model => model.WorldPayTemplateFormCode)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.AuthorizeOnly)
+
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.AuthorizeOnly)
+                        @Html.ValidationMessageFor(model => model.AuthorizeOnly)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        &nbsp;
+                    </div>
+                    <div class="col-md-9">
+                        <input type="submit" name="save" class="btn bg-blue" value="@T("Admin.Common.Save")" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}

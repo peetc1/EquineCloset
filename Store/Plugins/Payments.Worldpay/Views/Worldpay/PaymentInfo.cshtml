@@ -1,0 +1,106 @@
+﻿@{
+    Layout = "";
+}
+@model Nop.Plugin.Payments.Worldpay.Models.PaymentInfoModel
+@using Nop.Web.Framework;
+
+<table width="100%" cellspacing="2" cellpadding="1" border="0">
+    <tr>
+        <td>
+            @Html.NopLabelFor(model => model.CardholderName, false):
+        </td>
+        <td>
+            <input name="name" autocomplete="off" data-worldpay="name" id="CardholderName" style="Width: 165px;" type="text" value="">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.NopLabelFor(model => model.CardNumber, false):
+        </td>
+        <td>
+            <input name="" autocomplete="off" data-worldpay="number" id="CardNumber" maxlength="22" style="Width: 165px;" type="text" value="">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label>Expiration (MM/YYYY)</label>
+        </td>
+        <td>
+            @*<select data-worldpay="exp-month" >
+                @foreach (var option in Model.ExpireMonths)
+                { 
+                    <option value="@option.Text">@option.Text</option>
+                }
+            </select>
+            /
+            <select data-worldpay="exp-year" >
+                @foreach (var option in Model.ExpireYears)
+                { 
+                    <option value="@option.Text">@option.Text</option>
+                }
+            </select>*@
+            <input data-worldpay="exp-month" size="2" type="text" /> 
+            <label> / </label>
+            <input data-worldpay="exp-year" size="4" type="text" />
+
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.NopLabelFor(model => model.CardCode, false):
+        </td>
+        <td>
+            <input name="" autocomplete="off" data-worldpay="cvc" id="CardCode" maxlength="4" style="Width: 60px!important;" type="text" value="">
+        </td>
+    </tr>
+    <tr>
+        <td><input style="display:none;" type="hidden" name="paymenttoken" id="paymenttoken" /></td>
+        <td></td>
+    </tr>
+</table>
+
+
+<script type="text/javascript">
+    var clientKey = '@ViewBag.ClientKey';
+    $(document).ready(function () {
+        $(".payment-info-next-step-button").removeAttr("onClick");
+        $.getScript("https://cdn.worldpay.com/v1/worldpay.js", function (data, textStatus, jqxhr) {
+            Worldpay.setClientKey(clientKey);
+            console.log(Worldpay);
+            var form = document.getElementById('co-payment-info-form');
+            $(".payment-info-next-step-button").click(function () {
+                var token2 = Worldpay.card.createToken(form[0], $('.payment-errors')[0]);
+                alert(token2);
+                Worldpay.useOwnForm({
+                    'clientKey': clientKey,
+                    'form': form,
+                    'reusable': false,
+                    'callback': function (status, response) {
+                        alert('okok');
+                        console.log(response);
+                        document.getElementById('payment-errors').innerHTML = '';
+                        if (response.error) {
+                            Worldpay.handleError(form, document.getElementById('payment-errors'), response.error);
+                        } else {
+                            var token = response.token;
+                            $("#paymenttoken").val(token);
+                            if (document.location.href.indexOf('onepagecheckout') > -1) {
+                                PaymentInfo.save();
+                            }
+                            else {
+                                alert(token);
+                                //form.get(0).submit();
+                                //form.submit();
+                            }
+
+                            //  form.submit();
+                        }
+                    }
+                });
+            });
+            
+        });
+    });
+
+</script>
+<div id="payment-errors"></div>

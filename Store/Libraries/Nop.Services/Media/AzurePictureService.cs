@@ -1,11 +1,5 @@
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Web.Configuration;
-using ImageResizer;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Nop.Core;
@@ -17,7 +11,6 @@ using Nop.Data;
 using Nop.Services.Configuration;
 using Nop.Services.Events;
 using Nop.Services.Logging;
-using Nop.Services.Seo;
 
 namespace Nop.Services.Media
 {
@@ -45,7 +38,8 @@ namespace Nop.Services.Media
             IDbContext dbContext,
             IEventPublisher eventPublisher,
             MediaSettings mediaSettings,
-            NopConfig config)
+            NopConfig config,
+            IDataProvider dataProvider)
             : base(pictureRepository,
                 productPictureRepository,
                 settingService,
@@ -53,7 +47,8 @@ namespace Nop.Services.Media
                 logger,
                 dbContext,
                 eventPublisher,
-                mediaSettings)
+                mediaSettings,
+                dataProvider)
         {
             this._config = config;
 

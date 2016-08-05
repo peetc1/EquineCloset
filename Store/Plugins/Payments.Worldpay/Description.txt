@@ -1,0 +1,8 @@
+﻿Group: Payment methods
+FriendlyName: Worldpay
+SystemName: Payments.Worldpay
+Version: 1.0
+SupportedVersions: 3.80
+Author: www.nop-payments.com
+DisplayOrder: 1
+FileName: Nop.Plugin.Payments.Worldpay.dll
